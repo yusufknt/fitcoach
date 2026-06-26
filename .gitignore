@@ -1,0 +1,39 @@
+# dependencies
+/koc-paneli/node_modules
+/koc-paneli/.pnp
+/koc-paneli/.pnp.*
+/koc-paneli/.yarn/*
+!/koc-paneli/.yarn/patches
+!/koc-paneli/.yarn/plugins
+!/koc-paneli/.yarn/releases
+!/koc-paneli/.yarn/versions
+
+# testing
+/koc-paneli/coverage
+
+# next.js
+/koc-paneli/.next/
+/koc-paneli/out/
+
+# production
+/koc-paneli/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+/koc-paneli/.env*
+
+# vercel
+/koc-paneli/.vercel
+
+# typescript
+/koc-paneli/*.tsbuildinfo
+/koc-paneli/next-env.d.ts

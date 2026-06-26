@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitcoach - Proje Değerlendirme Raporu</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Material Icons for Premium Look -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+  <style>
+    /* Premium CSS variables based on Kinetic / Fitcoach Branding */
+    :root {
+      --bg-main: #09090b;
+      --bg-sidebar: #0f0f12;
+      --bg-card: rgba(22, 22, 26, 0.7);
+      --border-card: rgba(255, 255, 255, 0.05);
+      --border-focus: #C3F400;
+      
+      --color-primary: #C3F400;
+      --color-primary-rgb: 195, 244, 0;
+      --color-secondary: #8B5CF6;
+      --color-accent: #FF5A79;
+      
+      --color-text-main: #F4F4F7;
+      --color-text-muted: #A1A1AA;
+      --color-text-dark: #71717A;
+      
+      --color-success: #10B981;
+      --color-warning: #F59E0B;
+      --color-danger: #EF4444;
+      
+      --font-display: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      
+      --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Scrollbar style */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0d0d11;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #27272a;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--color-primary);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--color-text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      display: flex;
+    }
+
+    /* Responsive grid layout */
+    .app-container {
+      display: flex;
+      width: 100vw;
+      min-height: 100vh;
+    }
+
+    /* Sidebar Navigation */
+    aside {
+      width: 280px;
+      background-color: var(--bg-sidebar);
+      border-right: 1px solid var(--border-card);
+      padding: 2.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: fixed;
+      height: 100vh;
+      z-index: 100;
+    }
+
+    .brand-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      color: var(--color-text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .brand-title span.logo-icon {
+      color: var(--color-primary);
+      font-size: 2rem;
+    }
+
+    .brand-subtitle {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--color-primary);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      flex-grow: 1;
+    }
+
+    .nav-links a {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      border-radius: 10px;
+      transition: var(--transition-smooth);
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--color-text-main);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .nav-links a.active {
+      border-left: 3px solid var(--color-primary);
+      background: rgba(195, 244, 0, 0.05);
+      color: #fff;
+    }
+
+    .nav-links .material-symbols-outlined {
+      font-size: 1.25rem;
+    }
+
+    .sidebar-footer {
+      border-top: 1px solid var(--border-card);
+      padding-top: 1.5rem;
+      margin-top: auto;
+    }
+
+    .author-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .author-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-weight: 700;
+      font-family: var(--font-display);
+    }
+
+    .author-meta h4 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-text-main);
+    }
+
+    .author-meta p {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Main Content Area */
+    main {
+      flex: 1;
+      margin-left: 280px;
+      padding: 3rem 4rem;
+      max-width: 1200px;
+    }
+
+    header {
+      margin-bottom: 3.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-b: 1px solid var(--border-card);
+      padding-bottom: 2rem;
+    }
+
+    .header-info h1 {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(to right, #fff, #a1a1aa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-info p {
+      color: var(--color-text-muted);
+      font-size: 1.1rem;
+    }
+
+    .meta-badges {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-primary {
+      background: rgba(195, 244, 0, 0.1);
+      color: var(--color-primary);
+      border: 1px solid rgba(195, 244, 0, 0.2);
+    }
+
+    .badge-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--color-text-muted);
+      border: 1px solid var(--border-card);
+    }
+
+    /* Sections styling */
+    section {
+      margin-bottom: 4.5rem;
+      scroll-margin-top: 3rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-title .material-symbols-outlined {
+      color: var(--color-primary);
+      font-size: 2rem;
+    }
+
+    /* Glass Cards */
+    .glass-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      backdrop-filter: blur(16px);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      margin-bottom: 1.5rem;
+      transition: var(--transition-smooth);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(195, 244, 0, 0.15);
+      box-shadow: 0 15px 50px rgba(195, 244, 0, 0.03);
+      transform: translateY(-2px);
+    }
+
+    /* Lead paragraph */
+    .lead-text {
+      font-size: 1.15rem;
+      color: var(--color-text-main);
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+
+    /* Key highlights in executive summary */
+    .highlight-box {
+      border-left: 4px solid var(--color-primary);
+      background: rgba(195, 244, 0, 0.03);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 12px 12px 0;
+      margin-top: 1.5rem;
+    }
+
+    .highlight-box p {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Target Audience Cards Grid */
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .audience-card {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .audience-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .audience-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(195, 244, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+    }
+
+    .audience-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .audience-meta {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--color-secondary);
+      letter-spacing: 0.05em;
+    }
+
+    .audience-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      border-top: 1px solid var(--border-card);
+      padding-top: 1rem;
+      margin-top: auto;
+    }
+
+    .audience-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .audience-list li::before {
+      content: "•";
+      color: var(--color-primary);
+      font-weight: bold;
+    }
+
+    /* Table styles for modern look */
+    .responsive-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    .responsive-table th {
+      text-align: left;
+      font-family: var(--font-display);
+      color: var(--color-text-main);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 1rem;
+      border-bottom: 2px solid var(--border-card);
+    }
+
+    .responsive-table td {
+      padding: 1.2rem 1rem;
+      border-bottom: 1px solid var(--border-card);
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      vertical-align: top;
+    }
+
+    .responsive-table tbody tr:hover {
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    /* Sales feature cards */
+    .features-list {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .feature-row {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border-card);
+      padding-bottom: 1.5rem;
+    }
+
+    .feature-row:last-child {
+      border: none;
+      padding-bottom: 0;
+    }
+
+    .feature-num {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--color-primary);
+      background: rgba(195, 244, 0, 0.1);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .feature-content h4 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: var(--color-text-main);
+    }
+
+    .feature-content p {
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+    }
+
+    .feature-content .tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    /* Diagnostics Splits */
+    .diagnostic-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .diagnostic-col h3 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .working-title { color: var(--color-success); }
+    .broken-title { color: var(--color-danger); }
+
+    .diagnostic-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .diagnostic-item {
+      display: flex;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      border: 1px solid var(--border-card);
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+    }
+
+    .diagnostic-item.success-item {
+      border-left: 3px solid var(--color-success);
+    }
+
+    .diagnostic-item.danger-item {
+      border-left: 3px solid var(--color-danger);
+    }
+
+    .diagnostic-item span.icon {
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .diagnostic-item.success-item span.icon { color: var(--color-success); }
+    .diagnostic-item.danger-item span.icon { color: var(--color-danger); }
+
+    .diagnostic-item-content strong {
+      display: block;
+      color: var(--color-text-main);
+      margin-bottom: 0.15rem;
+    }
+
+    /* Timeline Roadmap */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+      border-left: 2px solid var(--border-card);
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .timeline-item {
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: calc(-2rem - 6px);
+      top: 6px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--bg-main);
+      border: 2px solid var(--color-primary);
+      box-shadow: 0 0 10px var(--color-primary);
+      z-index: 10;
+    }
+
+    .timeline-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      background: rgba(195, 244, 0, 0.08);
+      border: 1px solid rgba(195, 244, 0, 0.15);
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .timeline-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-desc {
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .timeline-tasks {
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+      border-top: 1px solid var(--border-card);
+      padding-top: 1rem;
+    }
+
+    .timeline-tasks li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+    }
+
+    .timeline-tasks li span.task-check {
+      color: var(--color-primary);
+      font-size: 1.15rem;
+      font-weight: bold;
+    }
+
+    /* Print Button / Actions */
+    .print-btn {
+      background: var(--color-primary);
+      color: #000;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition-smooth);
+      margin-top: 2rem;
+    }
+
+    .print-btn:hover {
+      box-shadow: 0 0 20px rgba(195, 244, 0, 0.4);
+      transform: translateY(-1px);
+    }
+
+    /* Interactive animations and helper styling */
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(195, 244, 0, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(195, 244, 0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(195, 244, 0, 0); }
+    }
+
+    .pulse-dot {
+      animation: pulse 2s infinite;
+      border-radius: 50%;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+      aside {
+        display: none; /* Hide sidebar on small tablets/mobile, could build a topbar if needed */
+      }
+      main {
+        margin-left: 0;
+        padding: 2rem;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+      }
+      .diagnostic-split {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside>
+      <div class="brand-section">
+        <div class="brand-title">
+          <span class="logo-icon material-symbols-outlined">analytics</span>
+          Kinetic Portal
+        </div>
+        <div class="brand-subtitle">Rapor Görünümü</div>
+      </div>
+      
+      <ul class="nav-links">
+        <li><a href="#summary" class="active"><span class="material-symbols-outlined">dashboard</span>Yönetici Özeti</a></li>
+        <li><a href="#audience"><span class="material-symbols-outlined">group</span>Hedef Kitle</a></li>
+        <li><a href="#sales"><span class="material-symbols-outlined">payments</span>Satış Artırıcılar</a></li>
+        <li><a href="#diagnostics"><span class="material-symbols-outlined">settings_suggest</span>Sistem Teşhisi</a></li>
+        <li><a href="#roadmap"><span class="material-symbols-outlined">route</span>Yol Haritası</a></li>
+        <li><a href="#strategy"><span class="material-symbols-outlined">lightbulb</span>GM Tavsiyeleri</a></li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="author-info">
+          <div class="author-avatar">GM</div>
+          <div class="author-meta">
+            <h4>Genel Müdür</h4>
+            <p>Satış & Geliştirme</p>
+          </div>
+        </div>
+        <button class="print-btn" onclick="window.print()">
+          <span class="material-symbols-outlined">print</span> Raporu Yazdır
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main>
+      <header>
+        <div class="header-info">
+          <h1>Koç Paneli (Fitcoach)</h1>
+          <p>Stratejik Değerlendirme & Geliştirme Raporu</p>
+        </div>
+        <div class="meta-badges">
+          <span class="badge badge-primary"><span class="material-symbols-outlined pulse-dot" style="font-size: 8px; fill: 1;">circle</span>SaaS İncelemesi</span>
+          <span class="badge badge-secondary">25 Haziran 2026</span>
+        </div>
+      </header>
+
+      <!-- 1. Yönetici Özeti -->
+      <section id="summary">
+        <h2 class="section-title">
+          <span class="material-symbols-outlined">dashboard</span>
+          1. Yönetici Özeti & Ürün Vizyonu
+        </h2>
+        <div class="glass-card">
+          <p class="lead-text">
+            <strong>Koç Paneli (Fitcoach / Kinetic Performance)</strong>, online ve birebir hizmet veren fitness, beslenme ve yaşam koçlarının öğrenci yönetim süreçlerini buluta taşıyan modern ve şık bir SaaS (Software as a Service) projesidir. Proje; koçun kendini tanıttığı bir <strong>açık web sitesi</strong>, koçun yönettiği <strong>admin paneli</strong> ve öğrencinin verilerini girdiği <strong>öğrenci portalı</strong> olmak üzere 3 sacayağından oluşmaktadır.
+          </p>
+          <p>
+            Mevcut teknik altyapı (Next.js 14+, Supabase, PostgreSQL RLS ve Realtime) oldukça sağlam ve güncel standartlara uygundur. Tasarım dili, fitness ve performans odaklı kimliğe yakışan koyu tonlarda ve premium hissettirecek şekilde kurgulanmıştır. Fakat, projenin ticarileşebilmesi ve gerçek kullanıcılara "satılabilir" hale gelmesi için ürünün merkezinde yer alan kritik bazı mekanizmaların hayata geçirilmesi gerekmektedir.
+          </p>
+          <div class="highlight-box">
+            <p>
+              <strong>GM Notu:</strong> Bu rapor, projenin mevcut durum teşhisini koyarak ürünü hızla gelir getiren bir modele ulaştıracak ticari ve teknik adımları planlamak amacıyla kaleme alınmıştır.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Hedef Kitle -->
+      <section id="audience">
+        <h2 class="section-title">
+          <span class="material-symbols-outlined">group</span>
+          2. Hedef Kitle Analizi (Alıcı Kitlesi)
+        </h2>
+        
+        <div class="glass-card">
+          <p class="lead-text" style="margin-bottom: 2rem;">
+            Platformumuz doğrudan koçlar ile öğrencileri birbirine bağlayan iki taraflı bir yapıya sahip olsa da, <strong>asıl satın alıcı kitle koçlardır</strong>.
+          </p>
+          
+          <div class="audience-grid">
+            <!-- Card 1 -->
+            <div class="glass-card audience-card">
+              <div class="audience-header">
+                <div class="audience-icon">
+                  <span class="material-symbols-outlined">fitness_center</span>
+                </div>
+                <div>
+                  <h3 class="audience-title">Bireysel Fitness Koçları</h3>
+                  <span class="audience-meta">Ana Alıcı Grubu</span>
+                </div>
+              </div>
+              <p style="font-size: 0.9rem; color: var(--color-text-muted);">WhatsApp ve Excel tabloları arasında kaybolan, danışanlarına profesyonel bir ara yüz ile program ulaştırmak isteyen kişisel eğitmenler.</p>
+              <ul class="audience-list">
+                <li>Kolay veri takibi</li>
+                <li>Hızlı program dağıtımı</li>
+                <li>Premium marka imajı</li>
+              </ul>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="glass-card audience-card">
+              <div class="audience-header">
+                <div class="audience-icon">
+                  <span class="material-symbols-outlined">local_dining</span>
+                </div>
+                <div>
+                  <h3 class="audience-title">Diyetisyen & Yaşam Koçları</h3>
+                  <span class="audience-meta">Dikey Büyüme Hedefi</span>
+                </div>
+              </div>
+              <p style="font-size: 0.9rem; color: var(--color-text-muted);">Kişiye özel kalori, besin takibi ve ölçüm planlaması yapan, danışanları ile sürekli etkileşim halinde olan uzmanlar.</p>
+              <ul class="audience-list">
+                <li>Alışkanlık takipleri</li>
+                <li>Realtime anlık iletişim</li>
+                <li>Form/onboarding verileri</li>
+              </ul>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="glass-card audience-card">
+              <div class="audience-header">
+                <div class="audience-icon">
+                  <span class="material-symbols-outlined">storefront</span>
+                </div>
+                <div>
+                  <h3 class="audience-title">Butik Salonlar & Stüdyolar</h3>
+                  <span class="audience-meta">B2B Kurumsal Alıcılar</span>
+                </div>
+              </div>
+              <p style="font-size: 0.9rem; color: var(--color-text-muted);">Kendi antrenör kadrosu olan ve üyelerinin tüm gelişimlerini tek elden kontrol etmek isteyen işletmeler (White-Label potansiyeli).</p>
+              <ul class="audience-list">
+                <li>Çoklu antrenör atama</li>
+                <li>Salon markalı özel domain</li>
+                <li>Toplu üye yönetimi</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Satış Artırıcı Özellikler -->
+      <section id="sales">
+        <h2 class="section-title">
+          <span class="material-symbols-outlined">payments</span>
+          3. Satılabilirliği Artırmak İçin Gereken Özellikler
+        </h2>
+        <div class="glass-card">
+          <p class="lead-text" style="margin-bottom: 2rem;">
+            Rakiplerimizle (Trainerize, TrueCoach, PT Distinction) rekabet edebilmek ve koçların platforma aylık üyelik bedeli ödemelerini sağlamak için eklememiz gereken kritik özellikler:
+          </p>
+          
+          <div class="features-list">
+            <!-- Feature 1 -->
+            <div class="feature-row">
+              <div class="feature-num">1</div>
+              <div class="feature-content">
+                <span class="tag">Kritik</span>
+                <h4>İnteraktif Antrenman ve Diyet Planlayıcı (Workout Builder)</h4>
+                <p>Şu an sistemde sadece statik PDF programları yüklenmektedir. Satış başarısı için koçun panelden egzersizleri (hareket adı, set, tekrar, dinlenme süresi) seçerek oluşturduğu ve öğrencinin antrenman esnasında işaretleme yapabildiği interaktif bir arayüz şarttır.</p>
+              </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="feature-row">
+              <div class="feature-num">2</div>
+              <div class="feature-content">
+                <span class="tag">Kritik</span>
+                <h4>Ödeme Altyapısı Entegrasyonu (Stripe / İyzico Checkout)</h4>
+                <p>Sisteme üye olmak isteyen öğrencilerin koçun tanıtım sayfasından doğrudan kartla ödeme yapabilmesi, ödeme başarılı olduktan sonra otomatik olarak öğrenci profilinin açılması ve koça komisyon kesilerek aktarılması SaaS modelinin belkemiğidir.</p>
+              </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="feature-row">
+              <div class="feature-num">3</div>
+              <div class="feature-content">
+                <span class="tag">Orta Vadeli</span>
+                <h4>Kişiselleştirilmiş Marka Desteği (Custom Domain & Branding)</h4>
+                <p>Koçların sistemi tamamen kendi markaları gibi kullanabilmesi için <code>kocunadi.fitcoach.com</code> yerine doğrudan kendi alan adlarını (örn: <code>kocum.com</code>) sisteme bağlayabilmeleri sağlanmalıdır.</p>
+              </div>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="feature-row">
+              <div class="feature-num">4</div>
+              <div class="feature-content">
+                <span class="tag">Uzun Vadeli</span>
+                <h4>Mobil Uygulama & Bildirimler (PWA / Push Notifications)</h4>
+                <p>Kullanıcıların antrenman yaparken tarayıcıyı açık tutması zordur. Uygulamanın Progressive Web App (PWA) olarak telefona indirilmesi ve koç program yüklediğinde anlık bildirim (push notification) gitmesi bağlılığı ciddi oranda artırır.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Sistem Teşhisi -->
+      <section id="diagnostics">
+        <h2 class="section-title">
+          <span class="material-symbols-outlined">settings_suggest</span>
+          4. Teknik Değerlendirme (Çalışanlar ve Düzeltilecekler)
+        </h2>
+        <div class="glass-card">
+          <p class="lead-text" style="margin-bottom: 2rem;">
+            Kod tabanı incelendiğinde altyapının yüksek standartta kurulduğu ancak birçok modülün henüz tamamlanmadığı ya da taslak (mock) olarak bırakıldığı görülmektedir.
+          </p>
+
+          <div class="diagnostic-split">
+            <!-- Left Side: Working -->
+            <div class="diagnostic-col">
+              <h3 class="working-title">
+                <span class="material-symbols-outlined" style="font-size: 1.5rem;">check_circle</span>
+                Çalışan / Tamamlanan Modüller
+              </h3>
+              <ul class="diagnostic-list">
+                <li class="diagnostic-item success-item">
+                  <span class="icon material-symbols-outlined">vpn_key</span>
+                  <div class="diagnostic-item-content">
+                    <strong>Güvenli Auth & Yetki Kontrolü</strong>
+                    Supabase Auth ve Next.js Middleware entegrasyonu tamam. Koç ve öğrenci rolleri otomatik ayrılıyor.
+                  </div>
+                </li>
+                <li class="diagnostic-item success-item">
+                  <span class="icon material-symbols-outlined">chat</span>
+                  <div class="diagnostic-item-content">
+                    <strong>Realtime Canlı Sohbet</strong>
+                    Supabase Realtime WebSocket altyapısı sayesinde koç-öğrenci arası anlık mesajlaşma çalışıyor.
+                  </div>
+                </li>
+                <li class="diagnostic-item success-item">
+                  <span class="icon material-symbols-outlined">assignment_ind</span>
+                  <div class="diagnostic-item-content">
+                    <strong>Öğrenci Onboarding Formu</strong>
+                    İlk kayıtta boy, kilo, ölçü ve sakatlık geçmişi gibi verilerin toplandığı görsel form akışı hazır.
+                  </div>
+                </li>
+                <li class="diagnostic-item success-item">
+                  <span class="icon material-symbols-outlined">monitoring</span>
+                  <div class="diagnostic-item-content">
+                    <strong>Görsel Gelişim Grafikleri</strong>
+                    Recharts entegrasyonu ile öğrencinin kilosu ve ölçü değişimleri grafiksel olarak çizilebiliyor.
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Right Side: Broken/Missing -->
+            <div class="diagnostic-col">
+              <h3 class="broken-title">
+                <span class="material-symbols-outlined" style="font-size: 1.5rem;">cancel</span>
+                Çalışmayan / Düzeltilecek Eksikler
+              </h3>
+              <ul class="diagnostic-list">
+                <li class="diagnostic-item danger-item">
+                  <span class="icon material-symbols-outlined">credit_card_off</span>
+                  <div class="diagnostic-item-content">
+                    <strong>Ödeme & Checkout Akışı Yok</strong>
+                    Çevre değişkenlerinde İyzico bilgileri olsa da ödeme arayüzü, API veya Webhook yapısı kodlanmamış. "Satın Al" butonu pasiftir.
+                  </div>
+                </li>
+                <li class="diagnostic-item danger-item">
+                  <span class="icon material-symbols-outlined">person_add_disabled</span>
+                  <div class="diagnostic-item-content">
+                    <strong>Öğrenci Ekleme / Davet Sistemi Eksik</strong>
+                    Koç panelinde manuel öğrenci kaydetme veya link ile davet etme seçeneği yok. Sistem dışarıya kapalı kalıyor.
+                  </div>
+                </li>
+                <li class="diagnostic-item danger-item">
+                  <span class="icon material-symbols-outlined">edit_square</span>
+                  <div class="diagnostic-item-content">
+                    <strong>Web Sitesi Düzenleyici (Mock)</strong>
+                    Ayarlar panelindeki "Web Sitesi" ve "Paket" düzenleme sekmeleri sadece taslaktır. Güncelleme yapıldığında veri kaydedilmiyor.
+                  </div>
+                </li>
+                <li class="diagnostic-item danger-item">
+                  <span class="icon material-symbols-outlined">link_off</span>
+                  <div class="diagnostic-item-content">
+                    <strong>Rotalarda Eksiklikler</strong>
+                    Dokümanda yer alan <code>/paketler</code> rotası frontend klasöründe bulunmuyor, sadece giriş sayfası aktiftir.
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Yol Haritası -->
+      <section id="roadmap">
+        <h2 class="section-title">
+          <span class="material-symbols-outlined">route</span>
+          5. Geliştirme Yol Haritası (Milestones)
+        </h2>
+        <div class="glass-card">
+          <div class="timeline">
+            <!-- Milestone 1 -->
+            <div class="timeline-item">
+              <span class="timeline-badge">Aşama 1 (Öncelikli)</span>
+              <h3 class="timeline-title">Kritik Ticari Altyapı</h3>
+              <p class="timeline-desc">Ürünün temel ticarileşmesini sağlayacak ve dışarıdan müşteri alımını açacak geliştirmeler (Tahmini: 2 Hafta).</p>
+              <ul class="timeline-tasks">
+                <li><span class="task-check">✓</span> Stripe/İyzico Checkout API entegrasyonu</li>
+                <li><span class="task-check">✓</span> Kayıt formunun (/kayit) tasarlanması ve ödeme ile bağlanması</li>
+                <li><span class="task-check">✓</span> Koç panelinden benzersiz "Öğrenci Davet Linki" oluşturabilme özelliği</li>
+              </ul>
+            </div>
+
+            <!-- Milestone 2 -->
+            <div class="timeline-item">
+              <span class="timeline-badge">Aşama 2 (Orta Vade)</span>
+              <h3 class="timeline-title">Yönetici Paneli ve Bildirimler</h3>
+              <p class="timeline-desc">Koçun sistemi yönetmesini kolaylaştıracak ve kullanıcı bağlılığını destekleyecek eklemeler (Tahmini: 2 Hafta).</p>
+              <ul class="timeline-tasks">
+                <li><span class="task-check">✓</span> Ayarlar panelindeki paket yönetimi ve site içerik editörünün çalışır hale getirilmesi</li>
+                <li><span class="task-check">✓</span> Resend entegrasyonu ile otomatik e-posta bildirimleri (Hoşgeldin maili, randevu hatırlatma)</li>
+              </ul>
+            </div>
+
+            <!-- Milestone 3 -->
+            <div class="timeline-item">
+              <span class="timeline-badge">Aşama 3 (Premium)</span>
+              <h3 class="timeline-title">İnteraktif İçerik ve Ölçekleme</h3>
+              <p class="timeline-desc">Sistemi rakiplerinin önüne geçirecek ve SaaS olarak büyütülmesini sağlayacak geliştirmeler (Tahmini: 3 Hafta).</p>
+              <ul class="timeline-tasks">
+                <li><span class="task-check">✓</span> PDF yükleme yerine interaktif set/tekrar/besin giriş arayüzü</li>
+                <li><span class="task-check">✓</span> Uygulamanın PWA (Progressive Web App) olarak mobil cihazlara indirilebilmesi</li>
+                <li><span class="task-check">✓</span> Çoklu koç (Multi-tenant SaaS) mimarisine geçiş ve abonelik paketleri satışı</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. GM Tavsiyeleri -->
+      <section id="strategy">
+        <h2 class="section-title">
+          <span class="material-symbols-outlined">lightbulb</span>
+          6. Satış & Pazarlama Stratejisi (GM Notları)
+        </h2>
+        <div class="glass-card">
+          <table class="responsive-table">
+            <thead>
+              <tr>
+                <th style="width: 30%;">Strateji</th>
+                <th style="width: 50%;">Açıklama</th>
+                <th style="width: 20%;">Hedef Etki</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Freemium Fiyatlandırma</strong></td>
+                <td>Koçlara ilk 3 danışanlarına kadar paneli tamamen ücretsiz sunalım. Bu sayede sistemi deneyimleyip alışmalarını sağlar, sonrasında ücretli pakete geçişlerini kolaylaştırırız.</td>
+                <td><span class="badge badge-primary">Yüksek Edinme</span></td>
+              </tr>
+              <tr>
+                <td><strong>Kişiselleştirilmiş Deneyim Vurgusu</strong></td>
+                <td>Pazarlamada en büyük vurgumuz "Kendi markanız altında, kendi alan adınızla çalışın" olmalıdır. Koçlar kendilerine ait bir platform olduğunu hissettiklerinde bağlılıkları artacaktır.</td>
+                <td><span class="badge badge-primary">Marka Değeri</span></td>
+              </tr>
+              <tr>
+                <td><strong>Instagram Link Ağacı Entegrasyonu</strong></td>
+                <td>Online koçların en büyük trafik kaynağı Instagram profilleridir. Koçlara profillerine ekleyebilecekleri şık ve dönüşüm odaklı bir "Link in Bio" şablonunu hediye olarak panelde sunalım.</td>
+                <td><span class="badge badge-primary">Dönüşüm Oranı</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Smooth scrolling & active link highlighting
+    document.querySelectorAll('aside a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Remove active class from all links
+        document.querySelectorAll('aside a').forEach(l => l.classList.remove('active'));
+        
+        // Add active class to current link
+        this.classList.add('active');
+        
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        
+        if (targetSection) {
+          targetSection.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Highlight links on scroll
+    window.addEventListener('scroll', () => {
+      let current = '';
+      const sections = document.querySelectorAll('section');
+      const navLinks = document.querySelectorAll('aside a');
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= (sectionTop - 150)) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
