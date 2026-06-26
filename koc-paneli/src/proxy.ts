@@ -5,7 +5,7 @@ import { getUserRole, updateSession } from '@/lib/supabase/middleware'
 const coachRoutes = ['/coach']
 const studentRoutes = ['/student']
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   const isCoachRoute = coachRoutes.some((route) => pathname.startsWith(route))
